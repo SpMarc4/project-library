@@ -2,3 +2,12 @@ html,
 body {
     font-family:'Roboto';
 }
+
+.layout {
+    display: grid;
+    justify-items: center;
+}
+
+#bookshelves, td, th {
+    border: 1px solid black;
+}
