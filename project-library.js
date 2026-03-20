@@ -15,22 +15,18 @@ function Book(id, title, author, pages, read)
 
 function addBookToLibrary (title, author, pages, read) {
     let id = crypto.randomUUID();
-    let book = new Book(id, title, author, pages);
+    let book = new Book(id, title, author, pages, read);
     myLibrary.push(book)
 } 
-
-const exampleBook = new Book(
-    'The Hobbit',
-    'J.R Tolkien',
-    '295',
-    'not read yet'
-);
 const bookshelves = document.querySelector('#bookshelves');
 
 function bookshelvesDisplay(bookArray) {
-    for (const book in bookArray) {
+    for (const book of bookArray) {
         let bookshelvesRow = document.createElement('tr');
+        console.log(`Book ${bookArray[book]}`)
         for (const [key, value] of Object.entries(book)) {
+            console.log(`key ${key}`)
+            console.log(`values ${value}`)
             let rowData = document.createElement('td');
             rowData.textContent = value;
             bookshelvesRow.appendChild(rowData)
@@ -39,11 +35,13 @@ function bookshelvesDisplay(bookArray) {
     }
 };
 
-addBookToLibrary(
+addBookToLibrary( 
     'The Hobbit',
     'J.R Tolkien',
     '29',
     'not read yet'
 )
+
+console.log(myLibrary)
 
 bookshelvesDisplay(myLibrary);

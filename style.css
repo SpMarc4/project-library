@@ -1,13 +1,46 @@
 html,
 body {
     font-family:'Roboto';
+    height: 100%;
 }
+
 
 .layout {
     display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 1fr;
+    align-items: center;
+    justify-items: center;
+    height: 100%;
+}
+
+.library-container {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    align-self: start;
+    align-items: center;
     justify-items: center;
 }
 
 #bookshelves, td, th {
     border: 1px solid black;
+}
+
+.form-container {
+    display: grid;
+    gap: 10px;
+}
+
+button {
+    justify-self: start;
+}
+
+.form-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.element {
+    display: grid;
 }
