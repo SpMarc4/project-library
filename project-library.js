@@ -44,12 +44,21 @@ function bookshelvesDisplay(lastBook) {
     let bookshelvesRow = document.createElement('tr');
     console.log(`Book ${lastBook}`)
     for (const [key, value] of Object.entries(lastBook)) {
-        console.log(`key ${key}`)
-        console.log(`values ${value}`)
+        console.log(`key ${key}`);
+        console.log(`values ${value}`);
         let rowData = document.createElement('td');
         rowData.textContent = value;
-        bookshelvesRow.appendChild(rowData)
+        if (key=='id') {bookshelvesRow.setAttribute('id', value)};
+        bookshelvesRow.appendChild(rowData);
     }
+    let deleteButton = document.createElement('button');
+    deleteButton.textContent = 'X';
+    deleteButton.style.setProperty('display', 'table-cell');
+    deleteButton.setAttribute('class', 'delete-button');
+    deleteButton.setAttribute('data-id', lastBook.id);
+    // Se añade evento al nuevo motor añadido
+    deleteButton.addEventListener('click', deleteBook);
+    bookshelvesRow.appendChild(deleteButton);
     bookshelves.appendChild(bookshelvesRow);
 };
 
@@ -61,7 +70,15 @@ function addNewBook(event) {
     console.log(myLibrary.at(-1))
     bookshelvesDisplay(myLibrary.at(-1))
     event.preventDefault();
-}
+};
+
+// Eliminación libro
+
+function deleteBook(event) {
+    let buttonId = event.target.getAttribute("data-id");
+    let bookToBeDeleted = document.getElementById(buttonId);
+    bookToBeDeleted.remove();
+};
 
 // Evento que dispara el ciclo
 
