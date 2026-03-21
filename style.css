@@ -16,7 +16,7 @@ body {
 
 .library-container {
     display: grid;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 1fr 17r;
     align-self: start;
     align-items: center;
     justify-items: center;
