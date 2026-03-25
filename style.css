@@ -2,43 +2,71 @@ html,
 body {
     font-family:'Roboto';
     height: 100%;
+    --background-color: skyblue;
+    --main-color: burlywood;
+    --secondary-color: rgba(165, 42, 42, 0.685);
+    --complementary-color: aliceblue;
 }
 
 
 .layout {
     display: grid;
+    padding: 20px;
+    gap: 20px;
     grid-template-columns: 2fr 1fr;
     grid-template-rows: 1fr;
     align-items: center;
     justify-items: center;
     height: 100%;
+    background-color: var(--background-color);
+}
+
+.library-container,
+.form-container {
+    background-color: var(--main-color);
+    font-weight: bold;
+    color: var(--complementary-color);
+    text-shadow: 0px 0px 2px black;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 1px black;
+    padding: 10px;
+
 }
 
 .library-container {
     display: grid;
-    grid-template-rows: 1fr 17r;
-    align-self: start;
-    align-items: center;
+    min-height: 50%;
+    grid-template-rows: 1fr 7fr;
+    align-items: start;
     justify-items: center;
 }
 
 #bookshelves, td, th {
     border: 1px solid black;
+    background-color: var(--secondary-color);
 }
 
 .form-container {
     display: grid;
-    gap: 10px;
+    gap: 15px;
 }
 
 button {
     justify-self: start;
 }
 
+button,
+input,
+select {
+    border: 1px var(--complementary-color);
+    border-radius: 5px;
+    padding: 5px;
+}
+
 .form-container form {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 10px;
 }
 
 .element {

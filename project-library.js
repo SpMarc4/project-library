@@ -1,4 +1,4 @@
-const myLibrary = [];
+let myLibrary = [];
 
 function Book(id, title, author, pages, read) 
 {
@@ -18,13 +18,13 @@ function Book(id, title, author, pages, read)
 Book.prototype.changeReadStatus = function () {
     const statusOutput = 'not read yet';
     this.read =  (this.read === statusOutput) ? 'read' : statusOutput;
-    this.updateReadStatus();
+    updateReadStatus(this.id, this.read);
 };
 
-Book.prototype.updateReadStatus = function () {
-    let trReadStatus = document.getElementById(this.id);
+function updateReadStatus (id, readStatus) {
+    let trReadStatus = document.getElementById(id);
     let tdReadStatus = trReadStatus.querySelector('[data-key=read]');
-    tdReadStatus.textContent = this.read;
+    tdReadStatus.textContent = readStatus;
 };
 
 // Se obtiene el contenido de la form
@@ -60,6 +60,7 @@ function bookshelvesDisplay(lastBook) {
     for (const [key, value] of Object.entries(lastBook)) {
         let rowData = document.createElement('td');
         rowData.setAttribute('data-key', key);
+        rowData.style.setProperty('text-align', 'center');
         rowData.textContent = value;
         if (key=='id') {bookshelvesRow.setAttribute('id', value)};
         bookshelvesRow.appendChild(rowData);
@@ -69,7 +70,10 @@ function bookshelvesDisplay(lastBook) {
     deleteButton.addEventListener('click', deleteBook);
     let statusButton = createStatusButton(bookshelvesRow);
     // Se añade evento al nuevo botón añadido
-    statusButton.addEventListener('click' ,function () {lastBook.changeReadStatus()});
+    statusButton.addEventListener('click' ,function () {
+        lastBook.changeReadStatus();
+        render();
+    });
     bookshelves.appendChild(bookshelvesRow);
 };
 
@@ -78,8 +82,7 @@ function bookshelvesDisplay(lastBook) {
 function addNewBook(event) {
     [title, author, pages, read] = getFormContent();
     addBookToLibrary(title, author, pages, read)
-    console.log(myLibrary.at(-1))
-    bookshelvesDisplay(myLibrary.at(-1))
+    render();
     event.preventDefault();
 };
 
@@ -124,8 +127,8 @@ function createStatusButton (row, changeReadStatus) {
 
 function deleteBook(event) {
     let buttonId = event.target.getAttribute("data-id");
-    let bookToBeDeleted = document.getElementById(buttonId);
-    bookToBeDeleted.remove();
+    myLibrary = myLibrary.filter( book => book.id != buttonId);
+    render();
 };
 
 
@@ -136,3 +139,43 @@ const submitButton = document.querySelector(".form-container button")
 submitButton.addEventListener("click", addNewBook)
 
 
+// Introducimos libros iniciales
+
+addBookToLibrary ('The Hobbit', 'J.R Tolkien', '295', 'not read yet');
+addBookToLibrary ('The Martian', 'Andy Weir', '295', 'read');
+addBookToLibrary ('Project Hail Mar', 'Andy Weir', '295', 'not read yet');
+
+// function initBookshelvesDisplay () {
+//     for (let book of myLibrary) {
+//         bookshelvesDisplay(book);
+//     }
+// };
+
+// initBookshelvesDisplay();
+
+// Se propone solución con renderizado, mas limpia.
+
+function render() {
+    bookshelves.innerHTML = '';
+    let arrTitles = ['Id',
+        'Title',
+        'Author',
+        'Pages',
+        'Read',
+        'Delete Book',
+        'Change Status'
+    ];
+    trTable = document.createElement('tr');
+
+    for (let elem of arrTitles) {
+        thRow = document.createElement('th');
+        thRow.textContent = elem
+        trTable.appendChild(thRow);
+    };
+    bookshelves.appendChild(trTable);
+    for (let book of myLibrary) {
+        bookshelvesDisplay(book);
+    };
+};
+
+render();
