@@ -1,25 +1,21 @@
 let myLibrary = [];
 
-function Book(id, title, author, pages, read) 
-{
-    if (!new.target) {
-        throw Error('You need to declare the constructor new.')
+class Book {
+    constructor(id, title, author, pages, read) {
+        this.id = id;
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.read = read;
     }
 
-    this.id = id;
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = read;
-};
+    changeReadStatus() {
+        const statusOutput = 'not read yet';
+        this.read =  (this.read === statusOutput) ? 'read' : statusOutput;
+        updateReadStatus(this.id, this.read);
+    }
 
-// Creación cambio estatus
-
-Book.prototype.changeReadStatus = function () {
-    const statusOutput = 'not read yet';
-    this.read =  (this.read === statusOutput) ? 'read' : statusOutput;
-    updateReadStatus(this.id, this.read);
-};
+}
 
 function updateReadStatus (id, readStatus) {
     let trReadStatus = document.getElementById(id);
