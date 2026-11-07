@@ -212,9 +212,13 @@ function deleteBook(event) {
 // Eventos de validación de los inputs
 
 titleInput.addEventListener('input', Validator.titleValidation)
+titleInput.addEventListener('blur', Validator.titleValidation)
 authorInput.addEventListener('input', Validator.authorValidation)
+authorInput.addEventListener('blur', Validator.authorValidation)
 pagesInput.addEventListener('input', Validator.pagesValidation)
+pagesInput.addEventListener('blur', Validator.pagesValidation)
 readInput.addEventListener('change', Validator.readValidation)
+readInput.addEventListener('blur', Validator.readValidation)
 
 // Evento que dispara el ciclo y valida el form
 
